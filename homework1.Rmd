@@ -1,0 +1,97 @@
+---
+title: "Homework 01-131"
+author: "Dharynka Tapia"
+date: "2022-10-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Question 1: Define Supervised and Unsupervised Learning. What are the differences?
+
+Supervised learning is a statistical model in which predicts or estimates an ouptut based on multiple  inputs thus relying on labeled data. Unsupervised learning is a statistical model that has inputs but no  supervised outputs in other words it processes unlabelled/raw data. The main differences between supervised learning and unsupervised learning is that for supervised we often find regresion or classification analysis while for unsupervised learning we will find the analysis and clustering of a given data set. 
+
+Question 2: Explain the difference between a regression model and a classification model, specifically in the context of machine learning
+
+A Classification Model is seen in supervised learning in which the outcome will not be numerical but rather qualitative thus it will be assigned to different catergories. For instance if we have a model that is analysis a data set of emails we can have a classification model that tells us whether or not a given email is spam or not. A Regression Model is another type of supervised learning model that involves predicting a quantitative output value. Some regressional models can be linear, logistical or polynomial. An example of a regression model is trying to predict wage given a persons age, year and education. 
+
+Question 3: Name two commonly used metrics for regression ML problems. Name two commonly used metrics for classification ML problems.
+
+For Regression Machine Learning models two metrics typically used are mean squared error and the goodness of fit measure (R^2). With the mean square error (MSE) it tells us the average of a set of errors, it takes the distance from the points to the line of regression and squares them. The lower the MSE the better our regression line is. R-sqaured is a goodness of fit measure for regression ML problems that tells us the percentage in which the variance in the dependent variable that is explained by the independent variable. The closer it is to 1 means the better the model explains the variation in the response variable. 
+
+For Classification Machine Learning Problems two metrics typically used are error rate and a confusion matrix. The Error Rate is typically the proporation of mistakes made if we apply our estimate to training observations. Confusion Matrix is refered to a table that allow an analyzed of performance for classification machine learning problems. 
+
+Question 4: As discussed, statistical models can be used for different purposes. These purposes can generally be classified into the following three categories. Provide a brief description of each.
+
+Descriptive Models: The idea behind a descriptive model is to be able to choose a model that best aims at being able to visually represent trends in data. This is often done through visual representation such as create a line through a scatterplot. 
+
+Inferential Models: This model aims at demonstrating which features are significant by testing throries and analyzes the relationship between outcomes and predictors.
+
+Predicitive Models: The predictive model looks at what combo of features fits bests. It aims at looking at relaionships among various factors to best predict Y with a minimum reducible error. In contrary to the inferential model, predictive model does not focus on hypothesis testing. 
+
+Question 5: Predictive Models are frequently used in machine learning, and they can usually be described as either mechanistic or empiracally driven. 
+
+Mechanistic: A model that is described as mechanistic implies that we will see a parametric form and that if we add more parameters within or model then we should see more flexibility. 
+
+Empircal: A model that is empirically driven has no assumptions of ouput and often requires more of a larger number of observation because of this it is more flexible. 
+
+within both they run a risk of overfitting whether or not one has assumptions or not. 
+
+I would believe that mechanistic driven model is easier to understand because we already have assumptions making it easier to understand how our model is changing. 
+
+In a more flexible model we will find that with a low bias we will have a high variance wile with a simple model a high bias will lead to a lower variance. 
+
+Question 6: A political candidat's campaign has collected some detailed voter history data from their constituents. 
+
+The first question regarding a voter's profile data, I would classify it as predictive because we are using predictors to accurately predict a future response in this case a vote in favor of the candidate.
+
+For the second question I would say that it would be inferential as we are assessing whether or not having personal contact with the candidate would increase the likelihood of support of the candidate. 
+
+
+Exercise 1:
+```{r mpg}
+summary(mpg)
+library(ggplot2)
+
+ggplot(mpg, aes(x=hwy))+geom_histogram(binwidth = 2.5)
+
+```
+It seems as if there are more vehicles that range within 15 or 25 miles per gallon on the highway with 30-40 miles per gallon being the least amount. 
+
+Exercise 2:
+```{r}
+ggplot(mpg, aes(x=hwy, y=cty))+geom_point()
+
+
+```
+For this scatterplot of Highway miles per gallon and city miles per gallon we see a linear pattern in which as the highway miles per gallon increases so does the city miles per gallon. This means that the both are positively correlated. 
+
+Exercise 3: 
+```{r}
+ggplot(mpg, aes(x=manufacturer))+geom_bar()
+
+ggplot(mpg, aes(x = reorder(factor(manufacturer), manufacturer, function(x) -length(x))))+geom_bar()
+
+ggplot(mpg, aes(x = reorder(manufacturer, manufacturer, length)))+geom_bar()
+
+```
+The manufacturer the produced the most cars was Licoln and the one that produced the least was dodge
+
+Exercise 4:
+```{r}
+ggplot(mpg) +
+  aes(x = factor(cyl), y = hwy) +
+  geom_boxplot()
+```
+In this boxplot we see that if we have a high value of cylinders then we should see a decrease in highway mileage and vice versa.
+
+```{r}
+mpg2 = select(mpg,cyl,cty,hwy,displ)
+M = cor(mpg2)
+corrplot(M, type='lower')
+```
+
+The variables that are positively correlated are Highway Mileage and City Mileage as well as Cylinder and Displacement. The ones with biggest negative correlation were Cylinder and City Mileage, City Mileage and Displacement, Highway Mileage and Displacement. I don't believe that any surprise me. 
