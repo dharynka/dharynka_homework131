@@ -44,10 +44,9 @@ ggplot(abalone, aes(x=age))+geom_histogram()
 
 ```
 
-The distribution of age appears to be a positively skewed distribution, with more abalones aging around 8-12.
+The distribution of age appears to be a positively skewed distribution, with more abalones aging around 8-12.  
 
-
-
+&nbsp;
 
 **Question 2: Split the above data into a training set and a testing set. Use stratifies sampling, You should decide on appropriate percentages for splitting the data.**
 
@@ -64,10 +63,12 @@ abalones_test = testing(abalones_split)
 
 ```
 
+&nbsp;
 
 **Question 3: Using the training data, create a recipe predicting the outcome variable, age, with all other predictor variables. Note that you should not include rings to predict age. Explain why you shouldn't use rings to predict age**
 
 We shouldn't use rings to predict age because rings is what is being used to account for age + 1.5
+
 
 ```{r}
 
@@ -79,8 +80,10 @@ abalone_recipe = recipe(age ~ type + longest_shell + diameter + height + whole_w
 
 ```
 
+&nbsp;
 
 **Question 4: Create and store a linear regression object using the "lm" engine.**
+
 
 ```{r}
 
@@ -88,6 +91,8 @@ abalone_lm_model = linear_reg() %>%
   set_engine("lm")
 
 ```
+
+&nbsp;
 
 **Question 5: Now** 
   1. Set up an empty workflow
@@ -100,8 +105,10 @@ abalone_lm_wflow = workflow()%>%
   add_recipe(abalone_recipe)
 ```
 
+&nbsp;
 
 **Question 6: Use your fit() object to predict the age of hypothetical female abalone with longest_shell = 0.50, diameter = 0.10, height = 0.30, whole_weight = 4, shucked_weight = 1, viscera_weight = 2, shell_weight = 1 **
+
 
 ```{r}
 abalone_lm_fit = fit(abalone_lm_wflow, abalones_train)
@@ -116,8 +123,11 @@ new_abalone = data.frame(type = 'F', longest_shell = 0.50, diameter = 0.10, heig
 predict(abalone_lm_fit, new_data = new_abalone)
 ```
 
+&nbsp;
+
 The predicted age of a hypothetical female abalone with  longest_shell = 0.50, diameter = 0.10, height = 0.30, whole_weight = 4, shucked_weight = 1, viscera_weight = 2, shell_weight = 1 is 22 years.
-  
+ 
+&nbsp; 
   
 **Question 7 Now you want to assess your model's performance. To do this, use the yardstick package: **
 
@@ -131,6 +141,8 @@ abalone_metrics = metric_set(rmse,rsq,mae)
 
 
 **2. Use predict() and bind_cols() to create a tibble of your model's predicted values from the training data along with the actual observed ages (these are needed to assess your model's performance)**
+
+
 
 ```{r}
 abalone_train_res = predict(abalone_lm_fit, new_data = abalones_train %>% select(-age))
@@ -152,5 +164,9 @@ abalone_train_res %>%
 abalone_metrics(abalone_train_res, truth = age, estimate = .pred)
 
 ```
-
+&nbsp;
 Because our R^2 is right in the middle it suggest that our model may not be the best model to use to predict the age of Abalones. 
+
+&nbsp;
+
+
