@@ -122,3 +122,5 @@ The predicted age of a hypothetical female abalone with  longest_shell = 0.50, d
 **Question 7 Now you want to assess your model's performance. To do this, use the yardstick package: 
 
 1. create a metric set that includes R^2 RMSE (Root mean squared error)
+
+;)
